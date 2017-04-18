@@ -1,5 +1,5 @@
 import React from 'react';
-import LeftSide from './leftSide';
+import LeftSideBar from './leftSide';
 import RightSide from './rightSide';
 import Header from './header';
 import Footer from './footer';
@@ -10,14 +10,10 @@ export default class Layout extends React.Component {
   render() { 
     return (
       <div>
-          < Header/>
   	      <div>
-  	        	<LeftSide/> <RefreshSource />
-  	      </div>
-          <div>
+              <LeftSideBar/>
               <RightSide />
           </div>
-          < Footer/>
       </div>
     );
   }

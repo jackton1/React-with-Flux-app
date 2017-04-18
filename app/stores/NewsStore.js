@@ -7,12 +7,10 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import NewsConstants from '../constants/NewsConstants';
 import ObjectAssign from 'object-assign';
 import {EventEmitter} from 'events';
+import EventConstants from '../constants/EventConstants.js'
 
-const CHANGE_EVENT = 'change';
-
-const _store = {
-  list: [],
-  editing: false
+const _articles = {
+  list: []
 };
 
 // Define the public event listeners and getters that
@@ -21,20 +19,28 @@ const _store = {
 const NewsStore = ObjectAssign( {}, EventEmitter.prototype, {
 
   addChangeListener(cb) {
-    this.on(CHANGE_EVENT, cb);
+    this.on(EventConstants.CHANGE_EVENT, cb);
+  },
+
+  addClickListener(cb){
+      this.on(EventConstants.CLICK_EVENT, cb);
+  },
+
+  removeClickListener(cb){
+        this.removeListener(EventConstants.CLICK_EVENT, cb);
   },
 
 
   removeChangeListener(cb) {
-    this.removeListener(CHANGE_EVENT, cb);
+    this.removeListener(EventConstants.CHANGE_EVENT, cb);
   },
 
   getAll(){
-    return _store.list;
+    return _articles.list;
   },
 
   getList() {
-    return _store;
+    return _articles;
   }
 
 });
@@ -43,26 +49,17 @@ const NewsStore = ObjectAssign( {}, EventEmitter.prototype, {
 // by changing the store's data and emitting a
 // change
 AppDispatcher.register(payload => {
-    // console.log(payload);
-    // return true;
   const action = payload.action;
 
   switch (action.actionType){
-      case NewsConstants.GET_NEWS:
+      case NewsConstants.GET_NEWS_ARTICLE:
           console.log(action.response);
-          _store.list.push(action.response);
-          NewsStore.emit(CHANGE_EVENT);
+          if (_articles.list.length > 0) _articles.list = [];
+          _articles.list.push(action.response.articles);
+          NewsStore.emit(EventConstants.CHANGE_EVENT);
           break;
-
-      case NewsConstants.GET_NEWS_RESPONSE:
-          console.log(action.response);
-          _store.push(action.response);
-          NewsStore.emit(CHANGE_EVENT);
-          break;
-
       default:
         return true;
-
   }
 
 });

@@ -6,11 +6,9 @@ import NewsAPI from '../utils/NewsAPI.js';
 export default {
   getSources(response) {
     AppDispatcher.handleViewAction({
-      actionType: NewsConstants.GET_SOURCE,
+      actionType: NewsConstants.GET_NEWS_ARTICLE,
       response
     });
-    
-    // NewsAPI.get();
   }
 
 };

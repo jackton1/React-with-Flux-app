@@ -1,4 +1,3 @@
-
 //
 // Requiring the Dispatcher, Constants, and
 // event emitter dependencies
@@ -7,13 +6,13 @@ import NewsDispatcher from '../dispatcher/NewsDispatcher'
 import NewsConstants from '../constants/NewsConstants';
 import ObjectAssign from 'object-assign';
 import {EventEmitter} from 'events';
+import EventConstants from "../constants/EventConstants";
 
-const CHANGE_EVENT = 'change';
+
 
 // Define the store as an empty array
-const _store = {
-  list: [],
-  editing: false
+const _sources = {
+  list: []
 };
 
 // Define the public event listeners and getters that
@@ -22,19 +21,27 @@ const _store = {
 const SourceStore = ObjectAssign( {}, EventEmitter.prototype, {
 
   addChangeListener(cb) {
-    this.emit(CHANGE_EVENT, cb);
+    this.on(EventConstants.CHANGE_EVENT, cb);
+  },
+
+  addClickListener(cb){
+    this.on(EventConstants.CLICK_EVENT, cb);
+  },
+
+  removeClickListener(cb){
+      this.removeListener(EventConstants.CLICK_EVENT, cb);
   },
 
   getAll(){
-       return _store.list;
+       return _sources.list;
   },
 
-    removeChangeListener(cb) {
-    this.removeListener(CHANGE_EVENT, cb);
+  removeChangeListener(cb) {
+    this.removeListener(EventConstants.CHANGE_EVENT, cb);
   },
 
   getList() {
-    return _store;
+    return _sources;
   }
 
 });
@@ -42,22 +49,15 @@ const SourceStore = ObjectAssign( {}, EventEmitter.prototype, {
 // Register each of the actions with the dispatcher
 // by changing the store's data and emitting a
 // change
-NewsDispatcher.register(payload => {
+AppDispatcher.register(payload => {
 
   const action = payload.action;
-  const source = payload.source;
 
     switch (action.actionType){
-        case NewsConstants.GET_SOURCE:
-            console.log(action.response);
-            _store.list.push(action.response);
-            SourceStore.emit(CHANGE_EVENT);
-            break;
-
-        case NewsConstants.GET_SOURCE_RESPONSE:
-            console.log(action.response);
-            _store.push(action.response);
-            SourceStore.emit(CHANGE_EVENT);
+        case NewsConstants.GET_NEWS_SOURCES:
+            if (_sources.list.length > 0) _sources.list = [];
+            _sources.list.push(action.response.sources);
+            SourceStore.emit(EventConstants.CHANGE_EVENT);
             break;
 
         default:

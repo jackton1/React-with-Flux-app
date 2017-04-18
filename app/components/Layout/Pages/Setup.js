@@ -10,7 +10,6 @@ export default class Setup extends React.Component {
   render() { 
     return (
       <div>
-     
         <RightSide />
       </div>
     );

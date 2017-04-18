@@ -1,39 +1,55 @@
 import React from 'react';
 import NewsStore from '../../stores/NewsStore';
 import NewsActions from '../../actions/NewsActions';
+import ArticleItem from './article-items.js'
 import * as NewsAPI from "../../utils/NewsAPI";
 
 export default class RightSide extends React.Component {
+
     constructor(props){
         super(props);
-        this.state = this.getItemsState();
-        // this._onChange = this._onChange.bind(this)
+        this.state = {articles: NewsStore.getAll()};
+        this.defaultId = 'cnn';
+        this.sortBy = undefined;
+        this._onChange = this._onChange.bind(this)
     }
 
-    getItemsState() {
-         return {
-            news: NewsStore.getAll(),
-         };
-    }
-    // _onChange (){
-    //   this.setState(this.getItemsState());
-    //  }
+    _onChange (){
+        this.setState(NewsStore.getAll());
+     }
   
-    // componentDidMount(){
-    //
-    //     NewsStore.addChangeListener(this._onChange);
-    // }
-    //
-    // componentWillUnmount(){
-    //     NewsStore.removeChangeListener(this._onChange);
-    // }
+    componentWillMount (){
+        NewsStore.addChangeListener(this._onChange);
+        NewsAPI.getNewsArticle(this.defaultId,  this.sortBy);
+    }
 
-    render(){
+    componentWillUnmount (){
+        NewsStore.removeChangeListener(this._onChange);
+    }
+
+    shouldComponentUpdate (nextProps, nextState){
+        console.log(nextProps, nextState);
+        this.setState({articles : NewsStore.getAll()});
+        return true;
+    }
+
+    render (){
+        let news = this.state.articles[0];
+        let rows = [];
+
+        if(news) {
+            news.map(function(item, index) {
+                rows.push(<ArticleItem key={index} index={index} item={item}/>);
+            });
+        }
+
         return (
-             <div onLoad={NewsAPI.getNewsApi()}>
-                  <h1>This is the Right side for news Result</h1>
-             </div>
+            <div className="col-lg-12">
+                <div style={{display :'inline-block', width:'100%'}}>
+                    {rows}
+                </div>
+            </div>
       );
     }
 
-}
+};

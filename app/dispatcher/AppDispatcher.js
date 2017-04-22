@@ -1,7 +1,8 @@
 import  { Dispatcher }  from 'flux';
 import ObjectAssign from 'object-assign';
+import NewsConstants from "../constants/NewsConstants";
 
-let AppDispatcher = ObjectAssign( new Dispatcher(), {
+const AppDispatcher = ObjectAssign( new Dispatcher(), {
    handleViewAction: function (action) {
        this.dispatch({
            action: action
@@ -10,5 +11,8 @@ let AppDispatcher = ObjectAssign( new Dispatcher(), {
 });
 
 
-module.exports = AppDispatcher;
+export default AppDispatcher;
+
+
+
 

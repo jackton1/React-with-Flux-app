@@ -1,7 +1,6 @@
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
 
 import NewsConstants from '../constants/NewsConstants.js';
-import NewsAPI from '../utils/NewsAPI.js';
 
 export default {
   getNewsSources(response) {

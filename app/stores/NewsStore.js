@@ -1,16 +1,15 @@
-
 //
 // Requiring the Dispatcher, Constants, and
 // event emitter dependencies
-import AppDispatcher from '../dispatcher/AppDispatcher';
 
 import NewsConstants from '../constants/NewsConstants';
 import ObjectAssign from 'object-assign';
 import {EventEmitter} from 'events';
 import EventConstants from '../constants/EventConstants.js'
+import AppDispatcher from "../dispatcher/AppDispatcher.js";
 
 const _articles = {
-  list: []
+  list: [], source: '', sortBy: ''
 };
 
 // Define the public event listeners and getters that
@@ -35,6 +34,14 @@ const NewsStore = ObjectAssign( {}, EventEmitter.prototype, {
     this.removeListener(EventConstants.CHANGE_EVENT, cb);
   },
 
+  getSource(){
+    return _articles.source;
+  },
+
+  getSortBy(){
+      return _articles.sortBy;
+  },
+
   getAll(){
     return _articles.list;
   },
@@ -45,23 +52,26 @@ const NewsStore = ObjectAssign( {}, EventEmitter.prototype, {
 
 });
 
+
 // Register each of the actions with the dispatcher
 // by changing the store's data and emitting a
 // change
 AppDispatcher.register(payload => {
-  const action = payload.action;
+    const action = payload.action;
 
-  switch (action.actionType){
-      case NewsConstants.GET_NEWS_ARTICLE:
-          console.log(action.response);
-          if (_articles.list.length > 0) _articles.list = [];
-          _articles.list.push(action.response.articles);
-          NewsStore.emit(EventConstants.CHANGE_EVENT);
-          break;
-      default:
-        return true;
-  }
+    switch (action.actionType){
+        case NewsConstants.GET_NEWS_ARTICLE:
+            if (_articles.list.length > 0) _articles.list = [];
+            _articles.list.push(action.response.articles);
+            _articles.source = action.response.source;
+            _articles.sortBy = action.response.sortBy;
+            NewsStore.emit(EventConstants.CHANGE_EVENT);
+            break;
+        default:
+            return true;
+    }
 
 });
+
 
 export default NewsStore;

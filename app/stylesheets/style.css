@@ -6,6 +6,15 @@ body {
   width: 30%;
 }
 
+.article-image{
+  height: 320px;
+  width: 560px;
+}
+
+.news-sources{
+  cursor: pointer;
+}
+
 .container{
   margin-left: 1px;
 }

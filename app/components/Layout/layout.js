@@ -1,9 +1,6 @@
 import React from 'react';
-import LeftSideBar from './leftSide';
-import RightSide from './rightSide';
-import Header from './header';
-import Footer from './footer';
-import RefreshSource from "./refresh";
+import Options from './options';
+import NewsPage from './news-page'; 
 
 
 export default class Layout extends React.Component {
@@ -11,8 +8,8 @@ export default class Layout extends React.Component {
     return (
       <div>
   	      <div>
-              <LeftSideBar/>
-              <RightSide />
+              <Options/>
+              <NewsPage/>
           </div>
       </div>
     );

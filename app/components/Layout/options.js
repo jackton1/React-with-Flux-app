@@ -1,21 +1,21 @@
 import React from 'react';
 import * as NewsAPI from "../../utils/NewsAPI";
 import SourceStore from '../../stores/SourceStore';
+import SourceItem from "./source-items";
+import NewsStore from "../../stores/NewsStore";
 
-import NewsActions from '../../actions/SourceActions';
-import ListItem from "./source-items";
-
-export default class LeftSideBar extends React.Component {
+export default class Options extends React.Component {
 	constructor(props){
         super(props);
         this.state = {sources: SourceStore.getAll()};
-		this._onLoad = this._onLoad.bind(this);
-		this._onChange = this._onChange.bind(this);
+        this._onLoad = this._onLoad.bind(this);
+        this._onChange = this._onChange.bind(this);
+        this.sortBy = undefined;
+        this.defaultId = 'cnn';
 	}
     _onLoad (){
         this.setState(SourceStore.getAll());
     }
-
     _onChange(event) {
         let sources = this.state.sources[0];
         let prop = 0;
@@ -35,29 +35,34 @@ export default class LeftSideBar extends React.Component {
 
     }
 
-   componentDidMount(){
-	   SourceStore.addChangeListener(this._onLoad);
+   componentWillMount(){
        NewsAPI.getNewsSources();
    }
 
+   componentDidMount () {
+       SourceStore.addChangeListener(this._onLoad);
+       NewsAPI.getNewsArticle(this.defaultId,  this.sortBy);
+   }
    componentWillUnmount (){
          SourceStore.removeChangeListener(this._onLoad);
    }
 
 	render (){
    	    let rows = [];
+   	    let change = this._onChange;
         if(this.state.sources[0]) {
             this.state.sources[0].map(function(item, index) {
-                rows.push(<ListItem key={index} index={index} item={item} />)
+                rows.push(<SourceItem key={index} value={item.id} name={item.name}
+                                      onclick={change}/>)
             });
         }
 		return (
-		    <div className="col-lg-12 pull-left" onLoad={this._onLoad}>
-                    <select onChange={this._onChange}>
-                        <option selected disabled hidden>'cnn'</option>
+		        <select defaultValue={this.defaultId}
+                        onChange={this._onChange} onMouseOut={this._onChange}
+                        className="col-lg-5 pull-left new-source"
+                        onLoad={this._onLoad}>
                         {rows}
-                    </select>
-            </div>
+                </select>
 			);
 	}
 }

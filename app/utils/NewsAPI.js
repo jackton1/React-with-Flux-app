@@ -7,6 +7,7 @@ import apikey  from './config.js';
 export function getNewsSources(){
     request.get('https://newsapi.org/v1/sources')
       .set({Accept : 'application/json', lang: 'en'})
+      .set('X-Api-Key', apikey.apikey)
       .on('error', errorHandler)
       .end((err, response) => {
         if (err) console.error(err);

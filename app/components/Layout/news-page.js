@@ -4,13 +4,11 @@ import NewsActions from '../../actions/NewsActions';
 import ArticleItem from './article-items.js'
 import * as NewsAPI from "../../utils/NewsAPI";
 
-export default class RightSide extends React.Component {
+export default class NewsPage extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {articles: NewsStore.getAll()};
-        this.sortBy = undefined;
-        this.defaultId = 'cnn';
         this._onChange = this._onChange.bind(this)
     }
 
@@ -20,7 +18,6 @@ export default class RightSide extends React.Component {
   
     componentWillMount (){
         NewsStore.addChangeListener(this._onChange);
-        NewsAPI.getNewsArticle(this.defaultId,  this.sortBy);
     }
 
     componentWillUnmount (){
@@ -28,7 +25,7 @@ export default class RightSide extends React.Component {
     }
 
     shouldComponentUpdate (nextProps, nextState){
-        console.log(nextProps, nextState);
+        // console.log(nextProps, nextState);
         this.setState({articles : NewsStore.getAll()});
         return true;
     }

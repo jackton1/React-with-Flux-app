@@ -2,7 +2,6 @@
 // Requiring the Dispatcher, Constants, and
 // event emitter dependencies
 import AppDispatcher from '../dispatcher/AppDispatcher';
-import NewsDispatcher from '../dispatcher/NewsDispatcher'
 import NewsConstants from '../constants/NewsConstants';
 import ObjectAssign from 'object-assign';
 import {EventEmitter} from 'events';
@@ -46,12 +45,13 @@ const SourceStore = ObjectAssign( {}, EventEmitter.prototype, {
 
 });
 
+
 // Register each of the actions with the dispatcher
 // by changing the store's data and emitting a
 // change
 AppDispatcher.register(payload => {
 
-  const action = payload.action;
+    const action = payload.action;
 
     switch (action.actionType){
         case NewsConstants.GET_NEWS_SOURCES:

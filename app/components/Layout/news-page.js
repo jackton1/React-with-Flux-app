@@ -9,8 +9,8 @@ export default class RightSide extends React.Component {
     constructor(props){
         super(props);
         this.state = {articles: NewsStore.getAll()};
-        this.defaultId = 'cnn';
         this.sortBy = undefined;
+        this.defaultId = 'cnn';
         this._onChange = this._onChange.bind(this)
     }
 

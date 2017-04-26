@@ -73,6 +73,7 @@ export default class Options extends React.Component {
                         <div className="input-group" >
                             <input type="text" list="source-search"
                                    className="form-control"
+                                   defaultValue={"CNN"}
                                    placeholder="Search for sources"
                                    onInput={this._onInput.bind(this)}
                                    onChange={this._onInput.bind(this)}/>

@@ -15,7 +15,7 @@ export default class ArticleItem extends React.Component {
         }
         if (imageSource !== null && imageSource !== undefined && imageSource !== ''){
             image = [<img key={this.props.item.url}  className="article-image" src={imageSource}
-                          style={{height: '320px', width: '560px'}}/> ]
+                          style={{height: '320px', width: '500px'}}/> ]
         }
         if (author !== null && author !== ''){
             author = 'Author: ' + author

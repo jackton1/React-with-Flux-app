@@ -130,7 +130,15 @@ constructor() {
     else {
       return (
         <div>
-          <button onClick={this.googleLogin} id="google" > Login With Google </button>
+          <button style={{
+              height: "115px",
+              width: "500px",
+            background: "url(../assets/sign-in-with-google.png) no-repeat",
+              textAlign: "center",
+              border: "2px solid #95989A",
+              position: "absolute",
+              top: "50%"}}
+              onClick={this.googleLogin} id="google" />
         </div>
       );
     }

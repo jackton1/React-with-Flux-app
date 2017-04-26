@@ -1,5 +1,4 @@
 import React from 'react';
-import Search from './search.js';
 
 export default class NavBar extends React.Component {
 
@@ -12,13 +11,11 @@ export default class NavBar extends React.Component {
                     </div>
                     <ul className="nav navbar-nav">
                         <li className="active"><a href="#">Home</a></li>
-                        {/*<li><a href="#">Setup</a></li>*/}
                     </ul>
-                    <Search />
-                    {/*<ul className="nav navbar-nav navbar-right">*/}
-                        {/*<li><a href="#"><span className="glyphicon glyphicon-user"/> Sign Up</a></li>*/}
+                    <ul className="nav navbar-nav navbar-right">
+                        <li><a href="/"><span className="glyphicon glyphicon-user"/> Sign Out</a></li>
                         {/*<li><a href="#"><span className="glyphicon glyphicon-log-in"/> Login</a></li>*/}
-                    {/*</ul>*/}
+                    </ul>
                 </div>
             </nav>
         );

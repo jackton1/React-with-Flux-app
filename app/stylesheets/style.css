@@ -1,25 +1,83 @@
 body {
-  background: #edf1e3;
+    background: #edf1e3;
 }
 
 .sources-table{
-  width: 30%;
+    width: 30%;
 }
 
 .article-image{
-  height: 320px;
-  width: 560px;
+    height: 320px;
+    width: 560px;
 }
 
 .news-sources{
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .container{
-  margin-left: 1px;
+    margin-left: 1px;
 }
 
 .scrollable-menu {
-  height: auto;
-  padding: 4px 17px;
+    height: auto;
+    padding: 4px 17px;
+}
+.google {
+    text-align: center;
+    border: 2px solid #95989A;
+    background: #fff no-repeat 25px;
+    background-size: 25px;
+    position: absolute;
+    top: 50%;
+}
+
+/* sorting css*/
+.news-articles{
+    cursor: pointer;
+}
+
+
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Add animation to "page content" */
+.animate-bottom {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: animatebottom;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+  from { bottom:-100px; opacity:0 }
+  to { bottom:0px; opacity:1 }
+}
+
+@keyframes animatebottom {
+  from{ bottom:-100px; opacity:0 }
+  to{ bottom:0; opacity:1 }
 }

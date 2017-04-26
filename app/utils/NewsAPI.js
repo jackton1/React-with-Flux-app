@@ -1,25 +1,17 @@
-import NewsServerActions from '../actions/NewsServerAction.js';
 import NewsActions from '../actions/NewsActions.js';
-import SourceServerActions from '../actions/SourceServerAction.js';
 import request from 'superagent';
 import apikey  from './config.js';
 
+//Makes a call to the News API to fetch both sources and articles
 export function getNewsSources(){
     request.get('https://newsapi.org/v1/sources')
       .set({Accept : 'application/json', lang: 'en'})
       .set('X-Api-Key', apikey.apikey)
-      .on('error', errorHandler)
       .end((err, response) => {
         if (err) console.error(err);
         if(response) NewsActions.getNewsSources(response.body);
       });
 }
-
-
-let errorHandler = function (err) {
-    console.error(err);
-};
-
 
 export function getNewsArticle(source, sortBy) {
     request.get('https://newsapi.org/v1/articles')

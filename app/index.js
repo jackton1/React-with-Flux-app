@@ -4,16 +4,23 @@ import Layout from './components/Layout/layout.js';
 import Header from "./components/Layout/header";
 import Footer from "./components/Layout/footer";
 import './stylesheets/style.css'
+import Login from "./login";
+
+// ReactDOM.render(
+//     <Header headers="Latest News"/>,
+//     document.getElementById('news-header')
+// );
+//
+// ReactDOM.render(
+//     <Layout />
+//     , document.getElementById('app')
+// );
 
 ReactDOM.render(
-    <Header headers="Latest News"/>,
-    document.getElementById('news-header')
-);
-
-ReactDOM.render(
-    <Layout />
+    <Login/>
     , document.getElementById('app')
 );
+
 
 ReactDOM.render(
     <Footer/>,

@@ -16,37 +16,39 @@ var babelOptions = {
 };
 
 module.exports = {
-  entry: './app/index.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'index_bundle.js'
-  },
-  module: {
-    rules: [
-      { test: /\.(js)$/, use: [
-          { loader: 'babel-loader',
-            options: babelOptions
-          }
+    entry: './app/index.js',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'index_bundle.js'
+    },
+    module: {
+        loaders: [
+            {
+                test: /\.(js)$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: babelOptions
+            }, {
+                test: /\.css$/,
+                loader: 'style-loader'
+            }, {
+                test: /\.css$/,
+                loader: 'css-loader',
+                query: {
+                    "modules": true,
+                    "include": path.resolve(__dirname , 'app/stylesheets'),
+                    "localIdentName": '[name]__[local]___[hash:base64:5]'
+                }
+            }, {
+                test: /\.html$/,
+                loader: 'html-loader'
+            }
         ]
-      },
-      { test: /\.css$/,
-        loader:   'style-loader'
-      },
-      { test: /\.css$/,
-          loader:  'css-loader',
-          query: {
-              "modules" : true,
-              "localIdentName": '[name]__[local]___[hash:base64:5]'
-          }
-      }
-    ],
-    loaders: [
-        {test: /\.html$/, loader: 'html-loader'},
+
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: 'app/index.html'
+        })
     ]
-  },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: 'app/index.html'
-    })
-  ]
 };

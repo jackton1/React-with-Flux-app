@@ -11,13 +11,20 @@ import EventConstants from "../constants/EventConstants";
 
 // Define the store as an empty array
 const _sources = {
-  list: []
+  list: [], language: undefined, country: undefined, sortBysAvailable: []
 };
 
 // Define the public event listeners and getters that
 // the views will use to listen for changes and retrieve
 // the store
 const SourceStore = ObjectAssign( {}, EventEmitter.prototype, {
+
+  getDefaultProps(props=undefined){
+      if (props === undefined){
+          return {defaultId: 'cnn', sortBy: 'top', sortBys: ['top']}
+      }
+     return props;
+  },
 
   addChangeListener(cb) {
     this.on(EventConstants.CHANGE_EVENT, cb);

@@ -6,6 +6,7 @@ import apikey  from './config.js';
 export function getNewsSources(){
     request.get('https://newsapi.org/v1/sources')
       .set({Accept : 'application/json', lang: 'en'})
+      .set('Access-Control-Allow-Origin', window.location.href)
       .set('X-Api-Key', apikey.apikey)
       .end((err, response) => {
         if (err) console.error(err);
@@ -16,6 +17,7 @@ export function getNewsSources(){
 export function getNewsArticle(source, sortBy) {
     request.get('https://newsapi.org/v1/articles')
         .set('X-Api-Key', apikey.apikey)
+        .set('Access-Control-Allow-Origin', window.location.href)
         .query({source: source, sortBy: sortBy})
         .end((err, response) => {
             if (err) console.error(err);

@@ -6,16 +6,6 @@ import Footer from "./components/Layout/footer";
 import './stylesheets/style.css'
 import Login from "./login";
 
-// ReactDOM.render(
-//     <Header headers="Latest News"/>,
-//     document.getElementById('news-header')
-// );
-//
-// ReactDOM.render(
-//     <Layout />
-//     , document.getElementById('app')
-// );
-
 ReactDOM.render(
     <Login/>
     , document.getElementById('app')

@@ -5,10 +5,10 @@ import NavBar from "./Header/nav";
 export default class Header extends React.Component {
   render() {
     return (
-            <div>
-                <NavBar />
+            <header>
+                <NavBar user={this.props.user}/>
                 <Title headers={this.props.headers}/>
-            </div>
+            </header>
     );
   }
 }

@@ -10,9 +10,3 @@ ReactDOM.render(
     <Login/>
     , document.getElementById('app')
 );
-
-
-ReactDOM.render(
-    <Footer/>,
-    document.getElementById('news-footer')
-);

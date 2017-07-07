@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from 'firebase';
 import Main from "./components/Layout/main";
 
-var provider = new firebase.auth.GoogleAuthProvider();
+const provider = new firebase.auth.GoogleAuthProvider();
 
 export default class Login extends React.Component {
 constructor() {
@@ -122,9 +122,7 @@ constructor() {
     // else 
     if (this.state.loggedIn) {
       return (
-        <div>
           <Main user={this.state.user} />
-        </div>
       );
     }
     else {

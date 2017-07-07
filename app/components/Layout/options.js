@@ -58,19 +58,18 @@ export default class Options extends React.Component {
         let rows = [];
         if(this.state.sources[0]){
             this.state.sources[0].map(function (item, index) {
-                rows.push(<option key={index} value={item.name} accessKey={item.id}>{item.id}</option>)
+                    rows.push(<option key={index} value={item.name} accessKey={item.id}>{item.name}</option>)
             });
         }
         if(this.state.sortBys){
             this.state.sortBys.map(function (item, index) {
-                sortBys.push(<SortItem key={index} value={item} name={item}/>)
+                sortBys.push(<SortItem key={index} index={index} value={item} name={item}/>)
             })
         }
-
-		return (<div>
-                    <div className="col-lg-5 pull-left">
-                        <h3>Please Select News Source</h3>
-                        <div className="input-group" >
+        let retValue = [];
+        let is_safari = navigator.userAgent.indexOf("Safari") > -1;
+        if(!is_safari){
+            retValue.push(<div className="input-group" >
                             <input type="text" list="source-search"
                                    className="form-control"
                                    defaultValue={"CNN"}
@@ -80,15 +79,22 @@ export default class Options extends React.Component {
                             <datalist id="source-search">
                                 {rows}
                             </datalist>
-                        </div>
+                         </div>)
+        }else{
+            retValue.push(<select className="sources" defaultValue={"CNN"} onChange={this._onInput.bind(this)}>{rows}</select>)
+        }
+
+		return (<div>
+                    <div className="col-lg-5 pull-left">
+                        <h3>Please Select News Source</h3>
+                        {retValue}
                     </div>
                     <div className="col-lg-4 pull-right">
                         <h3> Sort By</h3>
                         <select className="col-lg-3 sort-bys"
                             defaultValue={this.state.sortBy}
                             onChange={this._sortByOnChange}
-                            onClick={this._sortByOnChange}
-                            >
+                            onClick={this._sortByOnChange} >
                                 {sortBys}
                         </select>
                     </div>

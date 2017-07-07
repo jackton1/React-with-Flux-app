@@ -3,6 +3,7 @@ import NewsStore from '../../stores/NewsStore';
 import NewsActions from '../../actions/NewsActions';
 import ArticleItem from './article-items.js'
 import * as NewsAPI from "../../utils/NewsAPI";
+import Footer from "./footer";
 
 export default class NewsPage extends React.Component {
 
@@ -45,6 +46,7 @@ export default class NewsPage extends React.Component {
                 <div style={{display :'inline-block', width:'100%'}}>
                     {rows}
                 </div>
+                <Footer />
             </div>
       );
     }

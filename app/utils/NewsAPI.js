@@ -7,7 +7,8 @@ export function getNewsSources(){
     request.get('https://newsapi.org/v1/sources')
       .set({Accept : 'application/json', lang: 'en'})
       .set('Access-Control-Allow-Origin', window.location.href)
-      .set('X-Api-Key', apikey.apikey)
+      .set('X-API-Key', apikey.apikey)
+      .query({apiKey: apikey.apikey})
       .end((err, response) => {
         if (err) console.error(err);
         if(response) NewsActions.getNewsSources(response.body);
@@ -16,9 +17,9 @@ export function getNewsSources(){
 
 export function getNewsArticle(source, sortBy) {
     request.get('https://newsapi.org/v1/articles')
-        .set('X-Api-Key', apikey.apikey)
+        .set('X-API-Key', apikey.apikey)
         .set('Access-Control-Allow-Origin', window.location.href)
-        .query({source: source, sortBy: sortBy})
+        .query({source: source, sortBy: sortBy, apiKey: apikey.apikey})
         .end((err, response) => {
             if (err) console.error(err);
             if(response) NewsActions.getNewsArticles(response.body)
